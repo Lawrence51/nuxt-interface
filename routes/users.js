@@ -1,5 +1,4 @@
 var express = require('express');
-var bodyParser = require("body-parser");
 var router = express.Router();
 
 /* GET users listing. */
@@ -8,10 +7,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/login', (req, res, next) => {
-  var user=req.body.user; 
-  var password=req.body.password;
+  var user = req.body.user;
+  var password = req.body.password;
   console.log('###', req)
-  res.send({ message: '登录成功了，你的二货', user: user, password: password, token:'token' })
+  res.cookie("user", { msg: '登录成功了，你的二货', user: user, password: password, token: 'token' }, { maxAge: 900000, httpOnly: true });
+  res.send({ msg: '登录成功了，你的二货', user: user, password: password, token: 'token',err:'0' })
 })
 
 module.exports = router;
